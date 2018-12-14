@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1722644061297134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.2100472, y: -0.85788333, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletExplosionForce: 1000
   explosionRadius: 4
-  explosion: {fileID: 1206245096437898, guid: eac8db1a44a98e841a47de96b21a4b7a, type: 2}
+  explosion: {fileID: 1176364889194334, guid: eac8db1a44a98e841a47de96b21a4b7a, type: 2}
 --- !u!212 &212592090054594958
 SpriteRenderer:
   m_ObjectHideFlags: 1

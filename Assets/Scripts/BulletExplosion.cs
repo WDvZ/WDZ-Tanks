@@ -11,7 +11,7 @@ public class BulletExplosion : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 pointOfCollision = collision.GetContact(0).point;
-        Debug.Log("Collided with " + collision.collider.name);
+        //Debug.Log("Collided with " + collision.collider.name);
 
         GameObject newExplosion = GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);
