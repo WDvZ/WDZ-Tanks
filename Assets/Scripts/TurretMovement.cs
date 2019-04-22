@@ -21,7 +21,6 @@ public class TurretMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 rotate = new Vector3(0f, 0f, rotateSpeed);
 
         if (counterClockWise) {
             hingeTurretMotor.motorSpeed = rotateSpeed;
