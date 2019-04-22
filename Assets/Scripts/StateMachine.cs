@@ -36,17 +36,39 @@ public Aiming(BasePlayer owner) { this.owner = owner; }
 
 public void Enter()
 {
-    Debug.Log("entering test state");
+    Debug.Log("[State: Aiming] Starting to Aim");
 }
 
 public void Execute()
 {
-    Debug.Log("updating test state");
-}
+    Debug.Log("[State: Aiming] Aiming");
 
-public void Exit()
+        // Turret Angle (https://www.reddit.com/r/Unity3D/comments/7os3vt/how_to_snap_quaternion_rotation/)
+        //Set our current rotation to actualRotation to restore any lost values (less than rotationClamp)
+        owner.turret.rotation = owner.actualRotation;
+        //Get a rotation on the Z axis between -1 and 1. Times -1 so Right is clockwise.
+        var rotationInput = new Vector3(0f, 0f, -Input.GetAxis("Horizontal"));
+        //Rotate the transform based on the rotationInput
+        owner.turret.Rotate(rotationInput);
+        //Back up the rotation BEFORE we clamp it.
+        owner.actualRotation = owner.turret.rotation;
+        //Pull the current euler angle of our rotation
+        var currentEulerRotation = owner.turret.rotation.eulerAngles;
+        //Clamp it by taking the current euler rotation and subtracting any remainder when we divide each angle by rotationClamp
+        owner.turret.rotation = Quaternion.Euler(currentEulerRotation - new Vector3(currentEulerRotation.x % owner.rotationClamp, currentEulerRotation.y % owner.rotationClamp, currentEulerRotation.z % owner.rotationClamp));
+
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            //owner.stateMachine.ChangeState(new Fire(owner));
+            owner.Shoot();
+
+        }
+    }
+
+    public void Exit()
 {
-    Debug.Log("exiting test state");
+    Debug.Log("[State: Aiming] Finished aiming");
 }
 }
 
@@ -59,6 +81,7 @@ public class Fire : IState
     public void Enter()
     {
         Debug.Log("[State: Fire] Firing weapon");
+        owner.Shoot();
     }
 
     public void Execute()
