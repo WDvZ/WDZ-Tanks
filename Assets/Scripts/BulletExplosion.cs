@@ -15,5 +15,7 @@ public class BulletExplosion : MonoBehaviour {
 
         GameObject newExplosion = GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);
+
+        // Next steps: Have the Shoot method pass the tank that fired to this method so we can update the state
     }
 }
