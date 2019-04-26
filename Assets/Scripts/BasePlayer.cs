@@ -43,6 +43,7 @@ public class BasePlayer : MonoBehaviour
     {
         // Instantiate the projectile rotated the correct way
         GameObject newBullet = GameObject.Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
+        newBullet.GetComponent<BaseBullet>().myOwner = this;
         newBullet.GetComponent<BaseBullet>().ShootBullet(currPower);
     }
 }

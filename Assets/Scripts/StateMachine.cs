@@ -41,7 +41,7 @@ public void Enter()
 
 public void Execute()
 {
-    Debug.Log("[State: Aiming] Aiming");
+    //Debug.Log("[State: Aiming] Aiming");
 
         // Turret Angle (https://www.reddit.com/r/Unity3D/comments/7os3vt/how_to_snap_quaternion_rotation/)
         //Set our current rotation to actualRotation to restore any lost values (less than rotationClamp)
@@ -60,9 +60,7 @@ public void Execute()
 
         if (Input.GetButtonDown("Fire1"))
         {
-            //owner.stateMachine.ChangeState(new Fire(owner));
-            owner.Shoot();
-
+            owner.stateMachine.ChangeState(new Fire(owner));
         }
     }
 
@@ -86,7 +84,7 @@ public class Fire : IState
 
     public void Execute()
     {
-        Debug.Log("[State: Fire] Waiting for projectile to hit");
+        //Debug.Log("[State: Fire] Waiting for projectile to hit");
     }
 
     public void Exit()
