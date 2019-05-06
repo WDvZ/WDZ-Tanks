@@ -25,13 +25,15 @@ public class BaseBullet : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 pointOfCollision = collision.GetContact(0).point;
-        Debug.Log("Collided with " + collision.collider.name);
+        Debug.Log(this.name + " collided with " + collision.collider.name);
+        Debug.Log("Creating explosion...");
 
         GameObject newExplosion = GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
-        Destroy(gameObject);
 
         // Check what next state should be
         myOwner.stateMachine.ChangeState(new Aiming(myOwner));
+
+        Destroy(gameObject);
 
         // Next steps: Have the Shoot method pass the tank that fired to this method so we can update the state
     }
