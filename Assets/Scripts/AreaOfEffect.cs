@@ -23,7 +23,8 @@ public class AreaOfEffect : MonoBehaviour {
         Debug.Log("triggered by " + collision.gameObject.name);
         Debug.Log("Distance: " + distance2);
 
-
+        // A direct hit should cause more damage
+        // Distance is to center of object, so shouldn't use this for direct hits
 
     }
 }

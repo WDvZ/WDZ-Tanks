@@ -79,7 +79,7 @@ public class Fire : IState
     public void Enter()
     {
         Debug.Log("[State: Fire] Firing weapon");
-        owner.Shoot();
+        owner.Shoot(owner);
     }
 
     public void Execute()

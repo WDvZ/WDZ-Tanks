@@ -35,7 +35,7 @@ public class BaseBullet : MonoBehaviour {
 
         Destroy(gameObject);
 
-        // Next steps: Have the Shoot method pass the tank that fired to this method so we can update the state
+        // The Shoot method passes the tank that fired to this method so we can update the state
     }
 
 }

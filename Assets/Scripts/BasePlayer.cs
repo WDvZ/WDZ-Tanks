@@ -39,11 +39,11 @@ public class BasePlayer : MonoBehaviour
         stateMachine.Update();
     }
 
-    public void Shoot()
+    public void Shoot(BasePlayer basePlayer)
     {
         // Instantiate the projectile rotated the correct way
         GameObject newBullet = GameObject.Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
-        newBullet.GetComponent<BaseBullet>().myOwner = this;
+        newBullet.GetComponent<BaseBullet>().myOwner = basePlayer;
         newBullet.GetComponent<BaseBullet>().ShootBullet(currPower);
     }
 }
