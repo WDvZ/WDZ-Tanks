@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc661407254f074d8f307440da53019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myOwner: {fileID: 0}
 --- !u!114 &114385905198614450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc661407254f074d8f307440da53019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myOwner: {fileID: 0}
 --- !u!212 &212018154702497434
 SpriteRenderer:
   m_ObjectHideFlags: 1

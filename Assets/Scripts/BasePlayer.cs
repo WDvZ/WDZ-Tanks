@@ -6,6 +6,7 @@ public class BasePlayer : MonoBehaviour
 {
     public Transform turret;
 
+    public string playerName = "Player";
     public float baseHP = 100f;
     public float currHP;
 

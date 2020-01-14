@@ -13,6 +13,7 @@ public class BaseBullet : MonoBehaviour {
     public float bulletExplosionForce = 1000f;
     public float explosionRadius = 4f;
     public GameObject explosion;
+    public AreaOfEffect newEffect;
 
     public void ShootBullet(float aPower)
     {
@@ -29,6 +30,9 @@ public class BaseBullet : MonoBehaviour {
         Debug.Log("Creating explosion...");
 
         GameObject newExplosion = GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+        newEffect = newExplosion.GetComponent<AreaOfEffect>();
+        newEffect.myOwner = myOwner;
+        // Somehow need to get the timesincetriggered property to somewhere outside the bullet so statemachine is controlled from there.
 
         // Check what next state should be
         // May need to add a check for whether the shooting and damage calculations are finished. e.g. have the bullet or area of effect log the last time it was triggered and wait until nothing happens for 10 seconds.
