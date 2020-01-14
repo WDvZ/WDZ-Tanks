@@ -84,7 +84,13 @@ public class Fire : IState
 
     public void Execute()
     {
+        // Check if we're done firing, then go to the next state
         //Debug.Log("[State: Fire] Waiting for projectile to hit");
+        if (owner.doneFiring)
+        {
+            owner.stateMachine.ChangeState(new Aiming(owner));
+        }
+
     }
 
     public void Exit()

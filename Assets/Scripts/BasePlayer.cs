@@ -21,6 +21,8 @@ public class BasePlayer : MonoBehaviour
 
     public float rotationClamp = 0.5f;
 
+    public bool doneFiring = false;
+
     public Quaternion actualRotation;
 
     public StateMachine stateMachine = new StateMachine();
@@ -42,6 +44,7 @@ public class BasePlayer : MonoBehaviour
 
     public void Shoot(BasePlayer basePlayer)
     {
+        doneFiring = false;
         // Instantiate the projectile rotated the correct way
         GameObject newBullet = GameObject.Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
         newBullet.GetComponent<BaseBullet>().myOwner = basePlayer;
