@@ -31,6 +31,7 @@ public class BaseBullet : MonoBehaviour {
         GameObject newExplosion = GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
 
         // Check what next state should be
+        // May need to add a check for whether the shooting and damage calculations are finished. e.g. have the bullet or area of effect log the last time it was triggered and wait until nothing happens for 10 seconds.
         myOwner.stateMachine.ChangeState(new Aiming(myOwner));
 
         Destroy(gameObject);
