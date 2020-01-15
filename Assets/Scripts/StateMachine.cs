@@ -36,7 +36,7 @@ public Aiming(BasePlayer owner) { this.owner = owner; }
 
 public void Enter()
 {
-    Debug.Log("[State: Aiming] Starting to Aim");
+    Debug.Log("[State: Aiming] Starting to Aim: " + owner.playerName);
 }
 
 public void Execute()
@@ -66,7 +66,7 @@ public void Execute()
 
     public void Exit()
 {
-    Debug.Log("[State: Aiming] Finished aiming");
+    Debug.Log("[State: Aiming] Finished aiming: " + owner.playerName);
 }
 }
 
@@ -78,7 +78,7 @@ public class Fire : IState
 
     public void Enter()
     {
-        Debug.Log("[State: Fire] Firing weapon");
+        Debug.Log("[State: Fire] Firing weapon: " + owner.playerName);
         owner.Shoot(owner);
     }
 
@@ -88,13 +88,36 @@ public class Fire : IState
         //Debug.Log("[State: Fire] Waiting for projectile to hit");
         if (owner.doneFiring)
         {
-            owner.stateMachine.ChangeState(new Aiming(owner));
+            owner.stateMachine.ChangeState(new Waiting(owner));
+            
         }
 
     }
 
     public void Exit()
     {
-        Debug.Log("[State: Fire] Weapon finished firing");
+        Debug.Log("[State: Fire] Weapon finished firing: " + owner.playerName);
+    }
+}
+
+public class Waiting : IState
+{
+    BasePlayer owner;
+
+    public Waiting(BasePlayer owner) { this.owner = owner; }
+
+    public void Enter()
+    {
+        Debug.Log("[State: Waiting] Waiting for turn: " + owner.playerName);
+    }
+
+    public void Execute()
+    {
+
+    }
+
+    public void Exit()
+    {
+        Debug.Log("[State: Waiting] Starting turn: " + owner.playerName);
     }
 }

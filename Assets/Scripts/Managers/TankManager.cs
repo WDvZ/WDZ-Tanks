@@ -1,9 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class BasePlayer : MonoBehaviour
-{
+[Serializable]
+public class TankManager {
+
+    // Currently just a copy of BasePlayer. Checking whether this way will work better.
+    // https://www.youtube.com/watch?v=M4bH9lWOJE4
+
+    public Color m_PlayerColor;
+    public Transform m_SpawnPoint;
+    [HideInInspector] public int m_PlayerNumber;
+    [HideInInspector] public string m_ColoredPlayerText;
+    [HideInInspector] public GameObject m_Instance;
+    [HideInInspector] public int m_Wins;
+
     public Transform turret;
 
     public string playerName;
@@ -34,7 +46,7 @@ public class BasePlayer : MonoBehaviour
     {
         actualRotation = turret.rotation;
     }
-    
+
     void Update()
     {
 
