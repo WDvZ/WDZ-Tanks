@@ -94,6 +94,7 @@ MonoBehaviour:
   bulletExplosionForce: 1000
   explosionRadius: 4
   explosion: {fileID: 1176364889194334, guid: eac8db1a44a98e841a47de96b21a4b7a, type: 2}
+  newEffect: {fileID: 0}
 --- !u!212 &212592090054594958
 SpriteRenderer:
   m_ObjectHideFlags: 1

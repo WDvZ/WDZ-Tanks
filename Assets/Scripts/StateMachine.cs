@@ -47,7 +47,7 @@ public void Execute()
         //Set our current rotation to actualRotation to restore any lost values (less than rotationClamp)
         owner.turret.rotation = owner.actualRotation;
         //Get a rotation on the Z axis between -1 and 1. Times -1 so Right is clockwise.
-        var rotationInput = new Vector3(0f, 0f, -Input.GetAxis("Horizontal"));
+        var rotationInput = new Vector3(0f, 0f, -Input.GetAxis("Horizontal1"));
         //Rotate the transform based on the rotationInput
         owner.turret.Rotate(rotationInput);
         //Back up the rotation BEFORE we clamp it.
