@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour {
 
 
     private int m_RoundNumber;                  // Which round the game is currently on.
+    private int m_CurrentTurn;                  // Player whose turn it is
     private WaitForSeconds m_StartWait;         // Used to have a delay whilst the round starts.
     private WaitForSeconds m_EndWait;           // Used to have a delay whilst the round or game ends.
     private TankManager m_RoundWinner;          // Reference to the winner of the current round.  Used to make an announcement of who won.
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour {
         yield return StartCoroutine(RoundStarting());
 
         // Once the 'RoundStarting' coroutine is finished, run the 'RoundPlaying' coroutine but don't return until it's finished.
-        yield return StartCoroutine(RoundPlaying());
+        yield return StartCoroutine(TurnLoop());
 
         // Once execution has returned here, run the 'RoundEnding' coroutine, again don't return until it's finished.
         yield return StartCoroutine(RoundEnding());
@@ -99,6 +101,7 @@ public class GameManager : MonoBehaviour {
         // As soon as the round starts reset the tanks and make sure they can't move.
         ResetAllTanks();
         DisableTankControl();
+        m_CurrentTurn = 0;      // Initialise to zero, but TurnStarting will increment to 1. Player 1 will start each round
 
         // Snap the camera's zoom and position to something appropriate for the reset tanks.
         //m_CameraControl.SetStartPositionAndSize();
@@ -111,14 +114,29 @@ public class GameManager : MonoBehaviour {
         yield return m_StartWait;
     }
 
-
-    private IEnumerator RoundPlaying()
+    private IEnumerator TurnLoop()
     {
-        // As soon as the round begins playing let the players control the tanks.
-        EnableTankControl();
+        // Start off by running the 'TurnStarting' coroutine but don't return until it's finished.
+        yield return StartCoroutine(TurnStarting());
 
-        // Clear the text from the screen.
-        //m_MessageText.text = string.Empty;
+        // Once the 'TurnStarting' coroutine is finished, run the 'TurnPlaying' coroutine but don't return until it's finished.
+        yield return StartCoroutine(TurnPlaying());
+
+        // Once execution has returned here, run the 'TurnEnding' coroutine, again don't return until it's finished.
+        yield return StartCoroutine(TurnEnding());
+
+        // This code is not run until 'TurnEnding' has finished.  At which point, check if a round winner has been found.
+        if (m_RoundWinner != null)
+        {
+            // If there is a round winner, don't do the TurnLoop and let the round end.
+            SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
+        }
+        else
+        {
+            // If there isn't a winner yet, restart this coroutine so the loop continues.
+            // Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
+            StartCoroutine(TurnLoop());
+        }
 
         // While there is not one tank left...
         while (!OneTankLeft())
@@ -127,7 +145,6 @@ public class GameManager : MonoBehaviour {
             yield return null;
         }
     }
-
 
     private IEnumerator RoundEnding()
     {
@@ -155,6 +172,38 @@ public class GameManager : MonoBehaviour {
         yield return m_EndWait;
     }
 
+
+
+    private IEnumerator TurnStarting()
+    {
+        m_CurrentTurn++;
+        if (m_CurrentTurn > (m_Tanks.Length))
+        {
+            m_CurrentTurn = 1;
+        }
+
+        // Wait for the specified length of time until yielding control back to the game loop.
+        yield return m_StartWait;
+    }
+
+    private IEnumerator TurnPlaying()
+    {
+        m_Tanks[m_CurrentTurn-1].EnableControl();
+        // Wait for the specified length of time until yielding control back to the game loop.
+        // While there is not one tank left...
+        while (!m_Tanks[m_CurrentTurn - 1].ShotFired())
+        {
+            // ... return on the next frame.
+            yield return null;
+        }
+    }
+
+    private IEnumerator TurnEnding()
+    {
+        DisableTankControl();
+        // Wait for the specified length of time until yielding control back to the game loop.
+        yield return m_StartWait;
+    }
 
     // This is used to check if there is one or fewer tanks remaining and thus the round should end.
     private bool OneTankLeft()
@@ -245,13 +294,13 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    private void EnableTankControl()
-    {
-        for (int i = 0; i < m_Tanks.Length; i++)
-        {
-            m_Tanks[i].EnableControl();
-        }
-    }
+    //private void EnableTankControl()
+    //{
+    //    for (int i = 0; i < m_Tanks.Length; i++)
+    //    {
+    //        m_Tanks[i].EnableControl();
+    //    }
+    //}
 
 
     private void DisableTankControl()

@@ -7,7 +7,7 @@ public class AreaOfEffect : MonoBehaviour {
 
     private float distance;             // Distance from explosion
     public DateTime timeLastTriggered;  // Last time a collision was triggered
-    public BasePlayer myOwner;          // Player that caused the explosion
+    //public BasePlayer myOwner;          // Player that caused the explosion
 
     // Use this for initialization
     void Start () {

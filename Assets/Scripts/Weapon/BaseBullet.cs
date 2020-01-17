@@ -8,7 +8,7 @@ public class BaseBullet : MonoBehaviour {
     public float bulletSpeedMult =1f;   // Bullet speed multiplier
     private float bulletSpeed;          // Bullet base speed
 
-    public BasePlayer myOwner;          // Player that shot
+    //public BasePlayer myOwner;          // Player that shot
 
     /* Explosion stuff */
     public float bulletExplosionForce = 1000f;  // Strenght of explosion
@@ -49,7 +49,7 @@ public class BaseBullet : MonoBehaviour {
 
         GameObject newExplosion = GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
         newEffect = newExplosion.GetComponent<AreaOfEffect>();
-        newEffect.myOwner = myOwner;
+        //newEffect.myOwner = myOwner;
         // Initialise the timeLastTriggered, because the Start() method doesn't start until this on finishes
         // Should perhaps do this in a create() constructor in AreaOfEffect
         newEffect.timeLastTriggered = DateTime.Now;

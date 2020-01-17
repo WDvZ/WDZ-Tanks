@@ -69,7 +69,6 @@ public class TankAim : MonoBehaviour {
         //Pull the current euler angle of our rotation
         var currentEulerRotation = m_Turret.rotation.eulerAngles;
         //Clamp it by taking the current euler rotation and subtracting any remainder when we divide each angle by rotationClamp
-        float test = currentEulerRotation.z % m_AimSpeed;
         m_Turret.rotation = Quaternion.Euler(currentEulerRotation - new Vector3(0, 0, currentEulerRotation.z % m_AimSpeed));
         //var angle : float = Mathf.MoveTowardsAngle(angleA, angleB, turretSpeed * Time.deltaTime);
         //transform.eulerAngles = Vector3(0, angle, 0);

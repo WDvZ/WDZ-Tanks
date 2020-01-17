@@ -20,7 +20,7 @@ public class TankFire : MonoBehaviour {
     private string m_PowerAxisName;             // The name of the input axis for adjusting power.
     private float m_PowerInputValue;             // The current value of the power input.
     private Transform m_Turret;              // Reference used to move the turret.
-    private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
+    public bool m_Fired;                       // Whether or not the shell has been launched.
 
     private void Awake()
     {

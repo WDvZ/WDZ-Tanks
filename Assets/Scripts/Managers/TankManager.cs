@@ -22,8 +22,6 @@ public class TankManager {
     private TankFire m_Fire;                        // Reference to tank's shooting script, used to disable and enable control.
     //private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
 
-    public StateMachine stateMachine = new StateMachine();
-
     public void Setup()
     {
         // Get references to the components.
@@ -78,5 +76,10 @@ public class TankManager {
 
         m_Instance.SetActive(false);
         m_Instance.SetActive(true);
+    }
+
+    public bool ShotFired()
+    {
+        return m_Fire.m_Fired;
     }
 }
