@@ -35,8 +35,7 @@ public class BaseBullet : MonoBehaviour {
             timeSinceTriggered = (DateTime.Now - newEffect.timeLastTriggered).TotalSeconds;
       }
 
-        // Setting the doneFiring indicator to True will cause the Fire state to go to the next state (StateMachine)
-        myOwner.doneFiring = true;
+
         Destroy(gameObject);
 
     }

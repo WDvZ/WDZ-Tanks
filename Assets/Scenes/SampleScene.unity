@@ -149,8 +149,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 125369782}
+  - component: {fileID: 125369783}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,6 +170,35 @@ Transform:
   m_Father: {fileID: 741089353}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &125369783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 125369781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83047de9b936b444891cba18ea1937c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NumRoundsToWin: 5
+  m_StartDelay: 3
+  m_EndDelay: 3
+  m_TankPrefab: {fileID: 1699327259484256, guid: 325588c914ba03f4b92a4798509241d7,
+    type: 2}
+  m_Tanks:
+  - m_PlayerColor: {r: 0.6320754, g: 0, b: 0, a: 1}
+    m_SpawnPoint: {fileID: 79745065}
+    m_PlayerNumber: 0
+    m_ColoredPlayerText: 
+    m_Instance: {fileID: 0}
+    m_Wins: 0
+  - m_PlayerColor: {r: 0.8490566, g: 0.8490566, b: 0, a: 1}
+    m_SpawnPoint: {fileID: 1343223650}
+    m_PlayerNumber: 0
+    m_ColoredPlayerText: 
+    m_Instance: {fileID: 0}
+    m_Wins: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +506,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1888275212}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc160d60823a0c644865dd587b787fce, type: 3}
   m_Name: 
