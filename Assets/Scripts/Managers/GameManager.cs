@@ -5,6 +5,15 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 
+
+//=================Credits==================
+// Unity Tanks! Tutorial
+// https://www.youtube.com/channel/UCjDiDU1hXq31QIr0vN_yacQ xOctoManx Tutorials
+// https://www.gamedevelopment.blog/category/tutorial/fu2gt/
+// https://www.freemusicarchive.org/
+// https://freesound.org/people/SoundCollectah/packs/6951/
+
+
 public class GameManager : MonoBehaviour {
 
     public int m_NumRoundsToWin = 5;            // The number of rounds a single player has to win to win the game.
@@ -51,6 +60,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public TankManager GetCurrentPlayer()
+    {
+        return m_Tanks[m_CurrentTurn - 1];
+    }
 
     private void SetCameraTargets()
     {

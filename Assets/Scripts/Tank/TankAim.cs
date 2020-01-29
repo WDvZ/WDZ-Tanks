@@ -16,6 +16,7 @@ public class TankAim : MonoBehaviour {
     private void Awake()
     {
         m_Turret = GetComponent<Transform>().Find("Turret");
+        m_CurrAngle = (float)System.Math.Round(m_Turret.GetComponent<Transform>().rotation.eulerAngles.z, 1);
     }
 
     private void OnEnable()
@@ -72,6 +73,7 @@ public class TankAim : MonoBehaviour {
         m_Turret.rotation = Quaternion.Euler(currentEulerRotation - new Vector3(0, 0, currentEulerRotation.z % m_AimSpeed));
         //var angle : float = Mathf.MoveTowardsAngle(angleA, angleB, turretSpeed * Time.deltaTime);
         //transform.eulerAngles = Vector3(0, angle, 0);
+        m_CurrAngle = (float)System.Math.Round(m_Turret.GetComponent<Transform>().rotation.eulerAngles.z, 1);
     }
 
 
