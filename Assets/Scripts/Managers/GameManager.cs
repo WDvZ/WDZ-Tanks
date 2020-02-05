@@ -17,8 +17,8 @@ using System;
 public class GameManager : MonoBehaviour {
 
     public int m_NumRoundsToWin = 5;            // The number of rounds a single player has to win to win the game.
-    public float m_StartDelay = 1f;             // The delay between the start of RoundStarting and RoundPlaying phases.
-    public float m_EndDelay = 1f;               // The delay between the end of RoundPlaying and RoundEnding phases.
+    public float m_StartDelay = 0f;             // The delay between the start of RoundStarting and RoundPlaying phases.
+    public float m_EndDelay = 0f;               // The delay between the end of RoundPlaying and RoundEnding phases.
     //public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
     //public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
     public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
@@ -204,6 +204,7 @@ public class GameManager : MonoBehaviour {
         m_Tanks[m_CurrentTurn-1].EnableControl();
         // Wait for the specified length of time until yielding control back to the game loop.
         // While there is not one tank left...
+        // TODO: This condition still needs work - we need to wait for explosion and damage to finish
         while (!m_Tanks[m_CurrentTurn - 1].ShotFired())
         {
             // ... return on the next frame.
