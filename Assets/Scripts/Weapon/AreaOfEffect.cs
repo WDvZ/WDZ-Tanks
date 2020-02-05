@@ -18,6 +18,7 @@ public class AreaOfEffect : MonoBehaviour {
         // Save the time the explosion began
         timeLastTriggered = DateTime.Now;
         Debug.Log("Explosion started at " + timeLastTriggered.ToString("HH:mm:ss tt"));
+        AudioManager.instance.PlaySound("explosion");
 
     }
 	
@@ -35,6 +36,18 @@ public class AreaOfEffect : MonoBehaviour {
         Debug.Log("triggered by " + collision.gameObject.name);
         Debug.Log("Distance: " + distance);
         Debug.Log("Explosion triggered at " + timeLastTriggered.ToString("HH:mm:ss tt"));
+
+        float damage = distance * 100;
+
+        // If the collision is with a part of the tank, we need to reference the TankHealth of the BaseTank
+        if (collision.gameObject.name == "Tank" | collision.gameObject.name == "Turret")
+        {
+            ITankHealth itd = collision.GetComponentInParent<ITankHealth>();
+            if (itd != null)
+            {
+                itd.ITakeDamage(damage);
+            }
+        }
 
         // A direct hit should cause more damage
         // Distance is to center of object, so shouldn't use this for direct hits

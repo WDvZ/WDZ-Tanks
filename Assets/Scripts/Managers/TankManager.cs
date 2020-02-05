@@ -20,6 +20,7 @@ public class TankManager {
 
     private TankAim m_Aim;                        // Reference to tank's movement script, used to disable and enable control.
     private TankFire m_Fire;                        // Reference to tank's shooting script, used to disable and enable control.
+    private TankHealth m_Health;
     //private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
 
     public void Setup()
@@ -27,11 +28,14 @@ public class TankManager {
         // Get references to the components.
         m_Aim = m_Instance.GetComponent<TankAim>();
         m_Fire = m_Instance.GetComponent<TankFire>();
+        m_Health = m_Instance.GetComponent<TankHealth>();
+
         //m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
         // Set the player numbers to be consistent across the scripts.
         m_Aim.m_PlayerNumber = m_PlayerNumber;
         m_Fire.m_PlayerNumber = m_PlayerNumber;
+        m_Health.m_PlayerNumber = m_PlayerNumber;
 
         // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
         m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
@@ -47,6 +51,20 @@ public class TankManager {
         }
     }
 
+    public float getAngle()
+    {
+        return m_Aim.m_CurrAngle;
+    }
+
+    public float getPower()
+    {
+        return m_Fire.m_CurrPower;
+    }
+
+    public float getHealth()
+    {
+        return m_Health.m_CurrHP;
+    }
 
     // Used during the phases of the game where the player shouldn't be able to control their tank.
     public void DisableControl()

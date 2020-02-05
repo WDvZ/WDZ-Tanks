@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankHealth : MonoBehaviour {
+public class TankHealth : MonoBehaviour, ITankHealth {
 
-    // Get this from the Unity Tanks Tutorial (Completed) project
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int m_PlayerNumber = 1;              // Used to identify the different players.
+    public float m_CurrHP = 1000f;
+    private bool isDead = false;
+
+    public void IGainHealth(float health)
+    {
+        // WIP
+    }
+
+    public void ITakeDamage(float damage)
+    {
+        m_CurrHP -= damage;
+        if (m_CurrHP <= 0)
+        {
+            isDead = true;
+            Debug.Log("Dead");
+        }
+    }
 }
