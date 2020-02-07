@@ -6,7 +6,7 @@ public class TankHealth : MonoBehaviour, ITankHealth {
 
     public int m_PlayerNumber = 1;              // Used to identify the different players.
     public float m_CurrHP = 1000f;
-    private bool isDead = false;
+    public bool isDead = false;
 
     public void IGainHealth(float health)
     {
@@ -16,10 +16,15 @@ public class TankHealth : MonoBehaviour, ITankHealth {
     public void ITakeDamage(float damage)
     {
         m_CurrHP -= damage;
+
+        Debug.Log(this.name + " took " + damage.ToString() + " damage.");
+
         if (m_CurrHP <= 0)
         {
             isDead = true;
-            Debug.Log("Dead");
+            Debug.Log("Dead " + this.name);
+            //Destroy(this);
+
         }
     }
 }

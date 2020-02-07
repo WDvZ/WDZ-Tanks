@@ -97,8 +97,8 @@ public class GameManager : MonoBehaviour {
         // This code is not run until 'RoundEnding' has finished.  At which point, check if a game winner has been found.
         if (m_GameWinner != null)
         {
-            // If there is a game winner, restart the level.
-            SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
+            // If there is a game winner, go back to the main menu.
+            SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Single);
         }
         else
         {
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour {
         if (m_RoundWinner != null)
         {
             // If there is a round winner, don't do the TurnLoop and let the round end.
-            SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
         }
         else
         {
@@ -216,6 +216,14 @@ public class GameManager : MonoBehaviour {
     {
         DisableTankControl();
         // Wait for the specified length of time until yielding control back to the game loop.
+        // Go through all the tanks...
+        for (int i = 0; i < m_Tanks.Length; i++)
+        {
+            // ... and if they are active, increment the counter.
+            if (m_Tanks[i].getHealth() <= 0)
+                m_Tanks[i].Die();
+        }
+
         yield return m_StartWait;
     }
 

@@ -3,31 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-// Consider changing this to a scriptable object for easier customisation
-// https://www.gamedevelopment.blog/full-unity-2d-game-tutorial-2019-scriptable-objects/
+public class BulletBehaviour : MonoBehaviour
+{
 
-public class BaseBullet : MonoBehaviour {
     private const int waitTime = 2;     // How long we'll wait after the last collision before ending the turn
-    public float bulletSpeedMult =1f;   // Bullet speed multiplier
-    public float lifeTime = 7f;         // Time in seconds before we trigger explosion (if no collisions have occured)
-    private float bulletSpeed;          // Bullet base speed
-    private bool exploded;              // Keep track of whether the bullet has exploded yet
+    public bool exploded;              // Keep track of whether the bullet has exploded yet
+    public float lifeLeft;             // How long flight time the bullet has left
+    public float damage;            // How much damage the bullet (on its own) inflicts
 
-    //public BasePlayer myOwner;          // Player that shot
+    private AreaOfEffect newEffect;
+    public GameObject explosionPrefab;
+    private ScObWeaponProjectile m_Behaviour;
 
-    /* Explosion stuff */
-    public float bulletExplosionForce = 1000f;  // Strenght of explosion
-    public float explosionRadius = 4f;          // Size of explosion
-    public GameObject explosion;
-    public AreaOfEffect newEffect;
-
-    public void ShootBullet(float aPower)
+    public void Initialize(ScObWeaponProjectile weaponProfile)
     {
-        bulletSpeed = aPower;
         exploded = false;
-        // Launch the bullet forward
-        this.GetComponent<Rigidbody2D>().AddForce(this.GetComponent<Transform>().right * bulletSpeed * bulletSpeedMult, ForceMode2D.Impulse);
-        AudioManager.instance.PlaySound("gunshot");
+        m_Behaviour = weaponProfile;
+        lifeLeft = m_Behaviour.lifeTime;
+        explosionPrefab = m_Behaviour.explosionPrefab;
+        damage = m_Behaviour.damage;
     }
 
     private IEnumerator WaitForExplosion()
@@ -40,10 +34,10 @@ public class BaseBullet : MonoBehaviour {
             Debug.Log("Waiting for explosions. Waited for " + timeSinceTriggered + " seconds");
             yield return new WaitForSeconds(1);
             timeSinceTriggered = (Time.time - newEffect.timeLastTriggered);
-      }
+        }
 
 
-        Destroy(gameObject);
+        Destroy(this.gameObject);
 
     }
 
@@ -51,9 +45,9 @@ public class BaseBullet : MonoBehaviour {
     {
         exploded = true;
 
-        GameObject newExplosion = GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+        GameObject newExplosion = GameObject.Instantiate(explosionPrefab, gameObject.transform.position, gameObject.transform.rotation);
         newEffect = newExplosion.GetComponent<AreaOfEffect>();
-        
+
         //newEffect.myOwner = myOwner;
         // Initialise the timeLastTriggered, because the Start() method doesn't start until this on finishes
         // Should perhaps do this in a create() constructor in AreaOfEffect
@@ -64,6 +58,16 @@ public class BaseBullet : MonoBehaviour {
         StartCoroutine(WaitForExplosion());
     }
 
+    private void Update()
+    {
+        // Decrease bullet's lifetime
+        lifeLeft -= Time.deltaTime;
+        if (lifeLeft <= 0f & exploded == false)
+        {
+            Explosion();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Get the details of what collided with the bullet
@@ -71,17 +75,19 @@ public class BaseBullet : MonoBehaviour {
         Debug.Log(this.name + " collided with " + collision.collider.name);
         Debug.Log("Creating explosion...");
 
-        Explosion();
-    }
+        // If the collision is with a part of the tank, we need to reference the TankHealth of the BaseTank
+        if (collision.gameObject.name == "Tank" | collision.gameObject.name == "Turret")
+        {
+            ITankHealth itd = collision.gameObject.GetComponent<ITankHealth>();
+            if (itd != null)
+            {
+                itd.ITakeDamage(damage);
+            }
+        }
 
-    private void Update()
-    {
-        // Decrease bullet's lifetime
-        lifeTime -= Time.deltaTime;
-        if (lifeTime <= 0f & exploded==false)
+        if (m_Behaviour.explodeOnCollision)
         {
             Explosion();
         }
     }
-
 }

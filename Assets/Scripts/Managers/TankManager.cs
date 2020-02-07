@@ -21,6 +21,7 @@ public class TankManager {
     private TankAim m_Aim;                        // Reference to tank's movement script, used to disable and enable control.
     private TankFire m_Fire;                        // Reference to tank's shooting script, used to disable and enable control.
     private TankHealth m_Health;
+    private WeaponHolder m_Weapon;          // Reference to the tank's weapon holder
     //private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
 
     public void Setup()
@@ -29,6 +30,7 @@ public class TankManager {
         m_Aim = m_Instance.GetComponent<TankAim>();
         m_Fire = m_Instance.GetComponent<TankFire>();
         m_Health = m_Instance.GetComponent<TankHealth>();
+        m_Weapon = m_Instance.GetComponent<WeaponHolder>();
 
         //m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
@@ -99,5 +101,11 @@ public class TankManager {
     public bool ShotFired()
     {
         return m_Fire.m_Fired;
+    }
+
+    public void Die()
+    {
+        Debug.Log(m_Instance.name + ", Player " + m_PlayerNumber + ", has died");
+        m_Instance.SetActive(false);
     }
 }

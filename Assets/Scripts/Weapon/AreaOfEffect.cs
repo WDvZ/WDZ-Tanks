@@ -6,7 +6,7 @@ using System;
 public class AreaOfEffect : MonoBehaviour {
 
     private float distance;             // Distance from explosion
-    public DateTime timeLastTriggered;  // Last time a collision was triggered
+    public float timeLastTriggered;  // Last time a collision was triggered
     //public BasePlayer myOwner;          // Player that caused the explosion
 
     // Use this for initialization
@@ -16,8 +16,8 @@ public class AreaOfEffect : MonoBehaviour {
         // Debug.Log("My owner is " + myOwner.name + ": " + myOwner.playerName);
 
         // Save the time the explosion began
-        timeLastTriggered = DateTime.Now;
-        Debug.Log("Explosion started at " + timeLastTriggered.ToString("HH:mm:ss tt"));
+        timeLastTriggered = Time.time;
+        Debug.Log("Explosion started at " + timeLastTriggered.ToString());
         AudioManager.instance.PlaySound("explosion");
 
     }
@@ -30,12 +30,12 @@ public class AreaOfEffect : MonoBehaviour {
     {
 
         // Save the last time there was a collision
-        timeLastTriggered = DateTime.Now;
+        timeLastTriggered = Time.time;
         distance = Vector2.Distance(this.transform.position, collision.gameObject.transform.position);
 
         Debug.Log("triggered by " + collision.gameObject.name);
         Debug.Log("Distance: " + distance);
-        Debug.Log("Explosion triggered at " + timeLastTriggered.ToString("HH:mm:ss tt"));
+        Debug.Log("Explosion triggered at " + timeLastTriggered.ToString());
 
         float damage = distance * 100;
 
@@ -48,9 +48,5 @@ public class AreaOfEffect : MonoBehaviour {
                 itd.ITakeDamage(damage);
             }
         }
-
-        // A direct hit should cause more damage
-        // Distance is to center of object, so shouldn't use this for direct hits
-
     }
 }

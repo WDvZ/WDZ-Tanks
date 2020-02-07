@@ -46,10 +46,21 @@ public class TankFire : MonoBehaviour {
     void Update()
     {
         m_PowerInputValue = Input.GetAxis(m_PowerAxisName);
+        // Adjust angle and power
+        if (m_PowerInputValue < 0)
+        {
+            m_PowerInputValue = -1;
+        }
+        else if (m_PowerInputValue > 0)
+        {
+            m_PowerInputValue = 1;
+        }
+        m_CurrPower += m_PowerInputValue;
 
         if (Input.GetButtonDown(m_FireButton) && !m_Fired)
         {
-            Fire();
+            m_Fired = true;
+            GetComponent<WeaponHolder>().ShootBullet(m_CurrPower, m_BulletSpawnPoint);
         }
     }
     
@@ -69,13 +80,4 @@ public class TankFire : MonoBehaviour {
         }
     }
 
-    private void Fire()
-    {
-        // Set the fired flag so only Fire is only called once.
-        m_Fired = true;
-        // Instantiate the projectile rotated the correct way
-        GameObject newBullet = GameObject.Instantiate(m_Bullet, m_BulletSpawnPoint.position, m_BulletSpawnPoint.rotation);
-        //newBullet.GetComponent<BaseBullet>().myOwner = basePlayer;
-        newBullet.GetComponent<BaseBullet>().ShootBullet(m_CurrPower);
-    }
 }

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3055dcd0403760b4789c26e028d6b8ef, type: 3}
-  m_Name: Mortar
+  m_Name: DefaultWeapon
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 1176364889194334, guid: eac8db1a44a98e841a47de96b21a4b7a,
     type: 3}
   bulletPrefab: {fileID: 6984815794527276607, guid: 5df2a1614ec84b14f997e3dad5882fd2,
     type: 3}
-  weaponName: Mortar
-  weaponDesc: Shell that creates small explosion
-  ammoMax: 99
-  speedMultiplier: 3
-  damage: 10
-  lifeTime: 7
+  weaponName: Crappy Mortar
+  weaponDesc: Almost harmless, except to yourself
+  ammoMax: 1
+  speedMultiplier: 1
+  damage: 1
+  lifeTime: 5
   windAffect: 0.5
   explodeOnCollision: 1
