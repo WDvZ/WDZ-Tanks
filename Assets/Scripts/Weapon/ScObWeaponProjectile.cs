@@ -10,7 +10,7 @@ using UnityEngine;
  // An abstract class has functions without implementation - Since our actual weapon will have the implementation
 public class ScObWeaponProjectile : ScriptableObject
 {
-    public GameObject explosionPrefab;            // Explosion prefab we're using
+    public ScObExplosion scObExplosion;         // Type of explosion
     public GameObject bulletPrefab;              // Bullet prefab we're using
 
     public string weaponName;                       // weapon name e.g  mortar

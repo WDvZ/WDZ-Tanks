@@ -135,5 +135,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exploded: 0
   lifeLeft: 0
-  damage: 0
-  explosionPrefab: {fileID: 0}

@@ -8,7 +8,6 @@ public class WeaponHolder : MonoBehaviour
 
     private const int waitTime = 2;     // How long we'll wait after the last collision before ending the turn
 
-    private AreaOfEffect newEffect;
     private GameObject newBullet;
     private GameObject newExplosion;
 

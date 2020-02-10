@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="New Explosion", menuName = "Weapon/Explosion")]
-public abstract class ScObExplosion : ScriptableObject
+public class ScObExplosion : ScriptableObject
 {
     public GameObject explosionPrefab;              // Stores our Explosion Prefab
 
