@@ -68,6 +68,11 @@ public class TankManager {
         return m_Health.m_CurrHP;
     }
 
+    public void Fire()
+    {
+        m_Fire.Fire();
+    }
+
     // Used during the phases of the game where the player shouldn't be able to control their tank.
     public void DisableControl()
     {

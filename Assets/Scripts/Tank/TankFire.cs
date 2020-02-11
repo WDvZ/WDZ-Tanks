@@ -30,7 +30,7 @@ public class TankFire : MonoBehaviour {
     private void OnEnable()
     {
         // Also reset the input values.
-        m_PowerInputValue = 0f; // Set equal to m_PrevPower later
+        m_PowerInputValue = m_PrevPower;
         m_Fired = false;
     }
 
@@ -57,11 +57,6 @@ public class TankFire : MonoBehaviour {
         }
         m_CurrPower += m_PowerInputValue;
 
-        if (Input.GetButtonDown(m_FireButton) && !m_Fired)
-        {
-            m_Fired = true;
-            GetComponent<WeaponHolder>().ShootBullet(m_CurrPower, m_BulletSpawnPoint);
-        }
     }
     
     void FixedUpdate()
@@ -78,6 +73,14 @@ public class TankFire : MonoBehaviour {
             // ... use the max force.
             m_CurrPower = m_MaxPower;
         }
+    }
+
+    public void Fire()
+    {
+        if (m_Fired) { return; }
+        m_Fired = true;
+        m_PrevPower = m_CurrPower;
+        GetComponent<WeaponHolder>().ShootBullet(m_CurrPower, m_BulletSpawnPoint);
     }
 
 }
