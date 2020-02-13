@@ -22,7 +22,7 @@ public class UIPlayerUpdate : MonoBehaviour {
 
     private void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup = GetComponentInChildren<CanvasGroup>();
         canvasGroup.alpha = transparency;
     }
 
@@ -100,7 +100,6 @@ public class UIPlayerUpdate : MonoBehaviour {
 
     public void PowerSelect()
     {
-        InteractedUI();
         tank.m_Fire.Power = powerSlider.value;
     }
 
