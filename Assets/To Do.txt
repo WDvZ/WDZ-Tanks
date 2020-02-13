@@ -1,13 +1,14 @@
 To do
 =====
 
-- Replace arrow aiming with crank wheel touch controls
-- Replace arrow power with slider touch controls
+X Replace arrow aiming with crank wheel touch controls
+X Replace arrow power with slider touch controls
 X Automatically adjust transparency when hovering/not hovering over controls
 X Change crank wheel, slider handle and text color to match player turn
-- Hide UI text before round start (so it doesn't start white)
-- Test on Android
+X Hide UI text before round start (so it doesn't start white)
+X Test on Android
 X Investigate UI control size on different resolutions (currently using HD landscape, but then it's too big on smaller resolutions)
+- Change the method-jumping to directly reference the tank components (changed to public)
 
 - Add round start/end + winner messages
 - Weapon select
@@ -16,4 +17,10 @@ X Investigate UI control size on different resolutions (currently using HD lands
 - Number of players menu and human/AI selection
 - Random spawn points
 - Better weapon tracer
+- Better particle effects
 
+
+
+Bugs
+====
+- First player can double-tap fire to shoot twice

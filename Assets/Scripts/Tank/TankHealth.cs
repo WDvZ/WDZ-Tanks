@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TankHealth : MonoBehaviour, ITankHealth {
 
-    public int m_PlayerNumber = 1;              // Used to identify the different players.
     public float m_CurrHP = 1000f;
     public bool isDead = false;
 
@@ -23,8 +22,7 @@ public class TankHealth : MonoBehaviour, ITankHealth {
         {
             isDead = true;
             Debug.Log("Dead " + this.name);
-            //Destroy(this);
-
+            Destroy(this);
         }
     }
 }

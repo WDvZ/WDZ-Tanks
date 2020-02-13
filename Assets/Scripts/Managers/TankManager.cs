@@ -17,11 +17,12 @@ public class TankManager {
     [HideInInspector] public string m_ColoredPlayerText;    // Player text and HTML colour
     [HideInInspector] public GameObject m_Instance;         // Reference to instance of tank
     [HideInInspector] public int m_Wins;                    // Number of wins
+    [HideInInspector] public UIAimWheel m_AimWheel;         // Aim wheel reference
 
-    private TankAim m_Aim;                        // Reference to tank's movement script, used to disable and enable control.
-    private TankFire m_Fire;                        // Reference to tank's shooting script, used to disable and enable control.
-    private TankHealth m_Health;
-    private WeaponHolder m_Weapon;          // Reference to the tank's weapon holder
+    public TankAim m_Aim;                        // Reference to tank's movement script, used to disable and enable control.
+    public TankFire m_Fire;                        // Reference to tank's shooting script, used to disable and enable control.
+    public TankHealth m_Health;
+    public WeaponHolder m_Weapon;          // Reference to the tank's weapon holder
     //private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
 
     public void Setup()
@@ -32,12 +33,9 @@ public class TankManager {
         m_Health = m_Instance.GetComponent<TankHealth>();
         m_Weapon = m_Instance.GetComponent<WeaponHolder>();
 
-        //m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
+        m_Aim.m_AimWheel = m_AimWheel;
 
-        // Set the player numbers to be consistent across the scripts.
-        m_Aim.m_PlayerNumber = m_PlayerNumber;
-        m_Fire.m_PlayerNumber = m_PlayerNumber;
-        m_Health.m_PlayerNumber = m_PlayerNumber;
+        //m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
         // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
         m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
@@ -60,17 +58,12 @@ public class TankManager {
 
     public float getPower()
     {
-        return m_Fire.m_CurrPower;
+        return m_Fire.Power;
     }
 
     public float getHealth()
     {
         return m_Health.m_CurrHP;
-    }
-
-    public void Fire()
-    {
-        m_Fire.Fire();
     }
 
     // Used during the phases of the game where the player shouldn't be able to control their tank.
@@ -101,11 +94,6 @@ public class TankManager {
 
         m_Instance.SetActive(false);
         m_Instance.SetActive(true);
-    }
-
-    public bool ShotFired()
-    {
-        return m_Fire.m_Fired;
     }
 
     public void Die()

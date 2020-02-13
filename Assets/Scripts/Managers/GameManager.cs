@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
 
 //=================Credits==================
@@ -20,9 +21,10 @@ public class GameManager : MonoBehaviour {
     public float m_StartDelay = 0f;             // The delay between the start of RoundStarting and RoundPlaying phases.
     public float m_EndDelay = 0f;               // The delay between the end of RoundPlaying and RoundEnding phases.
     //public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
-    //public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
+    public TextMeshProUGUI m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
     public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
     public TankManager[] m_Tanks;             // A collection of managers for enabling and disabling different aspects of the tanks.
+    public UIAimWheel uiAimWheel;           // The UI Aim wheel that controls angle.
 
 
     private int m_RoundNumber;                  // Which round the game is currently on.
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour {
             m_Tanks[i].m_Instance =
                 Instantiate(m_TankPrefab, m_Tanks[i].m_SpawnPoint.position, m_Tanks[i].m_SpawnPoint.rotation) as GameObject;
             m_Tanks[i].m_PlayerNumber = i + 1;
+            m_Tanks[i].m_AimWheel = uiAimWheel;
             m_Tanks[i].Setup();
         }
     }
@@ -121,7 +124,7 @@ public class GameManager : MonoBehaviour {
 
         // Increment the round number and display text showing the players what round it is.
         m_RoundNumber++;
-        //m_MessageText.text = "ROUND " + m_RoundNumber;
+        m_MessageText.text = "ROUND " + m_RoundNumber;
 
         // Wait for the specified length of time until yielding control back to the game loop.
         yield return m_StartWait;
@@ -179,7 +182,7 @@ public class GameManager : MonoBehaviour {
 
         // Get a message based on the scores and whether or not there is a game winner and display it.
         string message = EndMessage();
-        //m_MessageText.text = message;
+        m_MessageText.text = message;
 
         // Wait for the specified length of time until yielding control back to the game loop.
         yield return m_EndWait;
@@ -205,7 +208,7 @@ public class GameManager : MonoBehaviour {
         // Wait for the specified length of time until yielding control back to the game loop.
         // While there is not one tank left...
         // TODO: This condition still needs work - we need to wait for explosion and damage to finish
-        while (!m_Tanks[m_CurrentTurn - 1].ShotFired())
+        while (!m_Tanks[m_CurrentTurn - 1].m_Fire.m_Fired)
         {
             // ... return on the next frame.
             yield return null;

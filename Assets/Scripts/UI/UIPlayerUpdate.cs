@@ -12,6 +12,7 @@ public class UIPlayerUpdate : MonoBehaviour {
     public TextMeshProUGUI healthDisplay;
     public Image aimWheel;
     public Slider powerSlider;
+    public Button fireButton;
     public TankManager tank;
     public GameManager currentGame;
     public float transparencyTime; // How long until the display goes back to being transparent after touch
@@ -32,7 +33,7 @@ public class UIPlayerUpdate : MonoBehaviour {
         {
             tank = currentGame.GetCurrentPlayer();
             UpdateAngle(tank.getAngle(), tank.m_PlayerColor);
-            UpdatePower(tank.getPower(), tank.m_PlayerColor);
+            UpdatePower(tank.m_Fire.Power, tank.m_PlayerColor);
             UpdateHealth(tank.getHealth(), tank.m_PlayerColor);
         }
         catch (Exception)
@@ -41,7 +42,8 @@ public class UIPlayerUpdate : MonoBehaviour {
             powerDisplay.enabled = false;
             healthDisplay.enabled = false;
             aimWheel.enabled = false;
-            powerSlider.enabled = false;
+            powerSlider.gameObject.SetActive(false);
+            fireButton.gameObject.SetActive(false);
         }
 
         if (timer > 0) {
@@ -61,6 +63,7 @@ public class UIPlayerUpdate : MonoBehaviour {
         angleDisplay.enabled = true;
         aimWheel.color = textColor;
         aimWheel.enabled = true;
+        fireButton.gameObject.SetActive(true);
     }
 
     private void UpdatePower(float power, Color textColor)
@@ -71,7 +74,8 @@ public class UIPlayerUpdate : MonoBehaviour {
         ColorBlock tempColors = powerSlider.colors;
         tempColors.normalColor = textColor;
         powerSlider.colors = tempColors;
-        powerSlider.enabled = true;
+        powerSlider.value = power;
+        powerSlider.gameObject.SetActive(true);
     }
     private void UpdateHealth(float health, Color textColor)
     {
@@ -83,9 +87,21 @@ public class UIPlayerUpdate : MonoBehaviour {
     public void FireButtonPress()
     {
         InteractedUI();
-        tank.Fire();
+        tank.m_Fire.Fire();
         canvasGroup.alpha = transparency; // For the fire button we immediately want the UI transparent again
         timer = 0;
+    }
+
+    public void AimTick(int direction)
+    {
+        tank.m_Aim.Aim(direction);
+        
+    }
+
+    public void PowerSelect()
+    {
+        InteractedUI();
+        tank.m_Fire.Power = powerSlider.value;
     }
 
     public void InteractedUI()

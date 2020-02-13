@@ -11,26 +11,14 @@ public class UIAimWheel : MonoBehaviour
 
     RectTransform rectT;
     Vector2 centerPoint;
+    Vector2 startPoint;
 
-    public float maximumSteeringAngle = 200f;
-    public float wheelReleasedSpeed = 200f;
+    private int direction;
+    public float degreesPerTick; // Degrees we need to rotate the wheel for one unit of aim
 
     float wheelAngle = 0f;
     float wheelPrevAngle = 0f;
-
-    bool wheelBeingHeld = false;
-
-    public float GetClampedValue()
-    {
-        // returns a value in range [-1,1] similar to GetAxis("Horizontal")
-        return wheelAngle / maximumSteeringAngle;
-    }
-
-    public float GetAngle()
-    {
-        // returns the wheel angle itself without clamp operation
-        return wheelAngle;
-    }
+    private float totalWheelMove;
 
     void Start()
     {
@@ -40,21 +28,11 @@ public class UIAimWheel : MonoBehaviour
 
     void Update()
     {
-        // If the wheel is released, reset the rotation
-        // to initial (zero) rotation by wheelReleasedSpeed degrees per second
-        //if (!wheelBeingHeld && !Mathf.Approximately(0f, wheelAngle))
-        //{
-        //    float deltaAngle = wheelReleasedSpeed * Time.deltaTime;
-        //    if (Mathf.Abs(deltaAngle) > Mathf.Abs(wheelAngle))
-        //        wheelAngle = 0f;
-        //    else if (wheelAngle > 0f)
-        //        wheelAngle -= deltaAngle;
-        //    else
-        //        wheelAngle += deltaAngle;
-        //}
 
         // Rotate the wheel image
+        //rectT.Rotate(Vector3.back * wheelAngle * Time.deltaTime);
         rectT.localEulerAngles = Vector3.back * wheelAngle;
+        //rectT.localEulerAngles = Vector3.back * wheelAngle;
     }
 
     void InitEventsSystem()
@@ -107,9 +85,9 @@ public class UIAimWheel : MonoBehaviour
         Vector2 pointerPos = ((PointerEventData)eventData).position;
         playerUpdate.InteractedUI();
 
-        wheelBeingHeld = true;
         centerPoint = RectTransformUtility.WorldToScreenPoint(((PointerEventData)eventData).pressEventCamera, rectT.position);
         wheelPrevAngle = Vector2.Angle(Vector2.up, pointerPos - centerPoint);
+        totalWheelMove = 0;
     }
 
     public void DragEvent(BaseEventData eventData)
@@ -122,14 +100,32 @@ public class UIAimWheel : MonoBehaviour
         if (Vector2.Distance(pointerPos, centerPoint) > 20f)
         {
             if (pointerPos.x > centerPoint.x)
+            {
                 wheelAngle += wheelNewAngle - wheelPrevAngle;
+                totalWheelMove += wheelNewAngle - wheelPrevAngle; // + Clockwise, - Counter-clockwise
+            }
             else
+            {
                 wheelAngle -= wheelNewAngle - wheelPrevAngle;
+                totalWheelMove += -(wheelNewAngle - wheelPrevAngle); // + Clockwise, - Counter-clockwise
+            }
         }
-        // Make sure wheel angle never exceeds maximumSteeringAngle
-        //wheelAngle = Mathf.Clamp(wheelAngle, -maximumSteeringAngle, maximumSteeringAngle);
+
+
         wheelPrevAngle = wheelNewAngle;
         playerUpdate.InteractedUI();
+
+        // Check if the wheel has moved enough for us to trigger an aim change
+        if (totalWheelMove >= degreesPerTick)
+        {
+            playerUpdate.AimTick(1); // Clockwise
+            totalWheelMove -= degreesPerTick;
+        }
+        else if (totalWheelMove <= -degreesPerTick)
+        {
+            playerUpdate.AimTick(-1); // Counter-Clockwise
+            totalWheelMove -= -degreesPerTick;
+        }
     }
 
     public void ReleaseEvent(BaseEventData eventData)
@@ -138,6 +134,6 @@ public class UIAimWheel : MonoBehaviour
         // Performs one last DragEvent, just in case
         DragEvent(eventData);
 
-        wheelBeingHeld = false;
+        direction = 0;
     }
 }
