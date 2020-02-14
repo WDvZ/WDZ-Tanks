@@ -18,7 +18,7 @@ MonoBehaviour:
   weaponName: Grenade
   weaponDesc: Grenade with a 5 second timer
   ammoMax: 99
-  speedMultiplier: 3
+  speedMultiplier: 25
   damage: 0
   lifeTime: 5
   windAffect: 0.5

@@ -57,6 +57,12 @@ public class ExplosionBehaviour : MonoBehaviour
                 itd.ITakeDamage(damage);
             }
         }
+
+        // Add force to everything triggered by the explosion, at a direction outward from the explosion relative to damage
+        if (collision.attachedRigidbody != null)
+        {
+            collision.attachedRigidbody.AddForce(m_Explosion.explosionForce * distance * (collision.transform.position - gameObject.transform.position).normalized, ForceMode2D.Impulse);
+        }
     }
 
     private void Update()

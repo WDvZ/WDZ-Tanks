@@ -78,11 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1ce6d41010ed94c80973aa0ea2e90f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerNumber: 1
   m_PrevPower: 500
   m_CurrPower: 500
   m_MaxPower: 1000
-  m_PowerSpeed: 10
   m_Bullet: {fileID: 1722644061297134, guid: 97710729130e2324287a9bab37bfff13, type: 3}
   m_BulletSpawnPoint: {fileID: 4783275468150208}
   m_Fired: 0
@@ -98,10 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed158ea6978fd57449a13ef9aa286e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerNumber: 1
   m_AimSpeed: 0.5
-  m_PrevAngle: 60
   m_CurrAngle: 0
+  m_AimWheel: {fileID: 0}
 --- !u!114 &114968698057145506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91cc4f629c79c0948ae54744235bdef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerNumber: 1
   m_CurrHP: 500
   isDead: 0
 --- !u!114 &-9059667725407259208
@@ -251,7 +247,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0.109999895}
+  m_ConnectedAnchor: {x: 0, y: 0.10999991}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 20
@@ -355,7 +351,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

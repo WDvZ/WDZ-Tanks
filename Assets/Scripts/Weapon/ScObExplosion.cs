@@ -14,6 +14,7 @@ public class ScObExplosion : ScriptableObject
     public float baseDamage;        // Base amount of damage dealt
     public float damageMultiplier;   // Damage multiplier
     public float fadeTime;          // How long it takes for the explosion to fade away
+    public float explosionForce;    // How much force the explosion applies, relative to distance
 
     private float timeLastTriggered;
     public void OnExplode()

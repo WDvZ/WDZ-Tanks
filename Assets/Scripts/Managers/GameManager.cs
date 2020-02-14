@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour {
     public TankManager[] m_Tanks;             // A collection of managers for enabling and disabling different aspects of the tanks.
     public UIAimWheel uiAimWheel;           // The UI Aim wheel that controls angle.
 
+    public Transform terrainMin;    // Starting point of terrain
+    public Transform terrainMax;    // Ending point of terrain
+    public int numTerrain;          // Number of terrain pieces to generate
+    public GameObject terrainPrefab;
+
 
     private int m_RoundNumber;                  // Which round the game is currently on.
     private int m_CurrentTurn;                  // Player whose turn it is
@@ -41,6 +46,7 @@ public class GameManager : MonoBehaviour {
         m_StartWait = new WaitForSeconds(m_StartDelay);
         m_EndWait = new WaitForSeconds(m_EndDelay);
 
+        SpawnTerrain();
         SpawnAllTanks();
         //SetCameraTargets();
 
@@ -48,6 +54,17 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(GameLoop());
     }
 
+    public void SpawnTerrain()
+    {
+        for (int i=0; i < numTerrain; i++)
+        {
+            float x = UnityEngine.Random.value * (terrainMax.position.x - terrainMin.position.x) + terrainMin.position.x;
+            float y = UnityEngine.Random.value * (terrainMax.position.y - terrainMin.position.y) + terrainMin.position.y;
+            GameObject newTriangle = GameObject.Instantiate(terrainPrefab, new Vector3(x, y, 0), Quaternion.Euler(0, 0, UnityEngine.Random.value * 360));
+            float randomScale = (float)(UnityEngine.Random.value * 0.5 + 0.1);
+            newTriangle.transform.localScale = new Vector3(randomScale, randomScale, 1);
+        }
+    }
 
     private void SpawnAllTanks()
     {

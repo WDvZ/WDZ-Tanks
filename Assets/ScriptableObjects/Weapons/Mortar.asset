@@ -18,7 +18,7 @@ MonoBehaviour:
   weaponName: Mortar
   weaponDesc: Shell that creates small explosion
   ammoMax: 99
-  speedMultiplier: 3
+  speedMultiplier: 25
   damage: 10
   lifeTime: 7
   windAffect: 0.5

@@ -17,6 +17,7 @@ public class UIPlayerUpdate : MonoBehaviour {
     public GameManager currentGame;
     public float transparencyTime; // How long until the display goes back to being transparent after touch
     [Range(0, 1)] public float transparency; // The default transparency of the UI elements
+    public float activeTransparency; // Transparency when player interacting with UI
     private float timer;    // Timer for setting transparency back to normal
     private CanvasGroup canvasGroup;
 
@@ -106,7 +107,7 @@ public class UIPlayerUpdate : MonoBehaviour {
     public void InteractedUI()
     {
         timer = transparencyTime;
-        canvasGroup.alpha = 1;
+        canvasGroup.alpha = activeTransparency;
     }
 
 }

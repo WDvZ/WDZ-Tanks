@@ -20,3 +20,4 @@ MonoBehaviour:
   baseDamage: 10
   damageMultiplier: 100
   fadeTime: 3
+  explosionForce: 200
