@@ -10,6 +10,7 @@ X Test on Android
 X Investigate UI control size on different resolutions (currently using HD landscape, but then it's too big on smaller resolutions)
 - Change the method-jumping to directly reference the tank components (changed to public)
 
+- Verify that damage and explosion force calculations work correctly
 - Add round start/end + winner messages
 - Weapon select
 - Revamp tank disable/enable at end of turn
@@ -24,3 +25,4 @@ X Investigate UI control size on different resolutions (currently using HD lands
 Bugs
 ====
 - First player can double-tap fire to shoot twice
+- Red player sometimes fires in a weird angle when pushing button too soon. Is the game perhaps still using yellow's location and turret angle?

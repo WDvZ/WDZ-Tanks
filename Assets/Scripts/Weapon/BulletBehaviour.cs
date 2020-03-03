@@ -25,13 +25,12 @@ public class BulletBehaviour : MonoBehaviour
     }
 
     private IEnumerator WaitForExplosion()
+    // Might not need this anymore
     {
         // Wait for waitTime seconds before finishing the turn
-        Debug.Log("Entered coroutine");
         double timeSinceTriggered = (Time.time - newExplosionBehaviour.timeLastTriggered);
         while (timeSinceTriggered < waitTime)
         {
-            Debug.Log("Waiting for explosions. Waited for " + timeSinceTriggered + " seconds");
             yield return new WaitForSeconds(1);
             timeSinceTriggered = (Time.time - newExplosionBehaviour.timeLastTriggered);
         }
@@ -66,9 +65,6 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Get the details of what collided with the bullet
-        Debug.Log(this.name + " collided with " + collision.collider.name);
-        Debug.Log("Creating explosion...");
 
         // If the collision is with a part of the tank, we need to reference the TankHealth of the BaseTank
         if (collision.collider.name == "Tank" | collision.collider.name == "Turret")

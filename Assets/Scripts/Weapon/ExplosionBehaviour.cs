@@ -20,7 +20,6 @@ public class ExplosionBehaviour : MonoBehaviour
     {
         // Save the time the explosion began
         timeLastTriggered = Time.time;
-        Debug.Log("Explosion started at " + timeLastTriggered.ToString());
         AudioManager.instance.PlaySound("explosion");
 
         m_Explosion = explosionProfile;
@@ -74,7 +73,7 @@ public class ExplosionBehaviour : MonoBehaviour
 
         if (lifeLeft <= 0f)
         {
-            Destroy(this.gameObject);
+            Destroy(this.transform.parent.gameObject);
         }
     }
 }

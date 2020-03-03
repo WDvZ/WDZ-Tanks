@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2487274050418476073}
   - component: {fileID: 2487274050418476074}
   - component: {fileID: 3959426880533327410}
-  m_Layer: 0
+  - component: {fileID: 1087137391528082970}
+  m_Layer: 8
   m_Name: tmpTriangle
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +127,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 0
+  m_LinearDrag: 0.1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -134,3 +135,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1087137391528082970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2487274050418476075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e737f66b3582c0d4798ccb8fbc344dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

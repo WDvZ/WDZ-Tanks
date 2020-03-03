@@ -44,7 +44,8 @@ public class TankFire : MonoBehaviour {
         if (m_Fired) { return; }
         m_Fired = true;
         m_PrevPower = m_CurrPower;
-        GetComponent<WeaponHolder>().ShootBullet(m_CurrPower, m_BulletSpawnPoint);
+        WeaponHolder weapon = GetComponent<WeaponHolder>();
+        weapon.ShootBullet(m_CurrPower, m_BulletSpawnPoint);
     }
 
 }
